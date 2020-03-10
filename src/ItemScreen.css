@@ -1,0 +1,25 @@
+
+
+.ItemScreen button {
+  margin-left:25px;
+  margin-top: 30px;
+}
+
+.ItemScreen button:last-child {
+    margin-right:0px;
+}
+
+.Footer {
+  margin-top: 30px;
+}
+
+.Footer button {
+  margin-right: 100px;
+  background-color: #2B60DE;
+  color: white;
+}
+
+.Footer button:disabled {
+  background-color: #7BB0FF;
+  color: white;
+}
