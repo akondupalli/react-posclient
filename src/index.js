@@ -7,9 +7,8 @@ import TenderScreen from './TenderScreen';
 import NotFound from './NotFound';
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import store from './Store'
-
-window.store = store;
+import store from './Store';
+import { Provider } from 'react-redux';
 
 const routing = (
   <Router>
@@ -25,7 +24,11 @@ const routing = (
   </Router>
 )
 
-ReactDOM.render(routing, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    {routing}
+  </Provider>,
+   document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change

@@ -1,24 +1,38 @@
 import React from 'react';
 import './ItemScreen.css';
+import {connect} from 'react-redux'
 
 class ItemScreen extends React.Component {
 
-constructor() {
+constructor(props) {
   super();
   this.state = {
     newState: "item",
     newSubstate: "initial",
-    itemCount: 0
+    itemCount: props.itemCount
   };
   this.onAddItem = this.addItem;
   this.onRemoveItem = this.removeItem;
 }
 
   onBack = () => {
+    if (this.state.itemCount > 0) {
+      let canCancel = window.confirm("Do you want to cancel current cart?");
+      if ( !canCancel )
+      {
+        return;
+      }
+    }
+    this.props.dispatch({
+      type: "CANCEL", payload:{newState: "welcome", newSubstate: "initial", itemCount: 0}
+    })
     this.props.history.push('/'); // Navigate to Welcome screen
   }
 
   onTotals = () => {
+    this.props.dispatch({
+      type: "TOTALS", payload:{newState: this.state.newState, newSubstate: this.state.newSubstate, itemCount: this.state.itemCount}
+    })
      this.props.history.push('/Tender'); // Navigate to Tender screen
   }
 
@@ -34,6 +48,12 @@ constructor() {
     this.setState({newState: "item",
     newSubstate: "removed",
     itemCount: this.state.itemCount-1})
+  }
+
+  updateState = () => {
+    this.setState({newState: "item",
+    newSubstate: "initial",
+    itemCount: this.props.itemCount})
   }
   render() {
     return (
@@ -55,4 +75,14 @@ constructor() {
   }
 }
 
-export default ItemScreen
+const mapStateToProps = state => {
+  return state;
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemScreen);
