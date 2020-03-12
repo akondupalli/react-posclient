@@ -1,5 +1,6 @@
 import React from 'react';
 import './TenderScreen.css';
+import {connect} from 'react-redux'
 
 class TenderScreen extends React.Component {
 
@@ -17,6 +18,9 @@ class TenderScreen extends React.Component {
   }
 
   TenderComplete = () => {
+    this.props.dispatch({
+      type: "PAYCOMPLETE", payload:{newState: "welcome", newSubstate: "initial", itemCount: 0}
+    })
     this.props.history.push('/'); // Navigate to Welcome screen
   }
 
@@ -47,4 +51,11 @@ class TenderScreen extends React.Component {
   }
 }
 
-export default TenderScreen
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapDispatchToProps)(TenderScreen);
+
