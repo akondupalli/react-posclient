@@ -7,7 +7,9 @@ import TenderScreen from './TenderScreen';
 import NotFound from './NotFound';
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import store from './Store'
 
+window.store = store;
 
 const routing = (
   <Router>
