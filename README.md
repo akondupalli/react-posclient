@@ -2,6 +2,10 @@ Very basic POS client using react framework along with redux for global state ma
 
 In the project directory, you can run:
 
+### `npm install`
+
+and
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
