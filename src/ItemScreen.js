@@ -1,88 +1,111 @@
-import React from 'react';
-import './ItemScreen.css';
-import {connect} from 'react-redux'
+import React from "react";
+import "./ItemScreen.css";
+import { connect } from "react-redux";
 
 class ItemScreen extends React.Component {
-
-constructor(props) {
-  super();
-  this.state = {
-    newState: "item",
-    newSubstate: "initial",
-    itemCount: props.itemCount
-  };
-  this.onAddItem = this.addItem;
-  this.onRemoveItem = this.removeItem;
-}
+  constructor(props) {
+    super();
+    this.state = {
+      newState: "item",
+      newSubstate: "initial",
+      itemCount: props.itemCount,
+    };
+    this.onAddItem = this.addItem;
+    this.onRemoveItem = this.removeItem;
+    this.returnButtonText = "Back";
+  }
 
   onBack = () => {
     if (this.state.itemCount > 0) {
       let canCancel = window.confirm("Do you want to cancel current cart?");
-      if ( !canCancel )
-      {
+      if (!canCancel) {
         return;
       }
     }
     this.props.dispatch({
-      type: "CANCEL", payload:{newState: "welcome", newSubstate: "initial", itemCount: 0}
-    })
-    this.props.history.push('/'); // Navigate to Welcome screen
-  }
+      type: "CANCEL",
+      payload: { newState: "welcome", newSubstate: "initial", itemCount: 0 },
+    });
+    this.props.history.push("/"); // Navigate to Welcome screen
+  };
 
   onTotals = () => {
     this.props.dispatch({
-      type: "TOTALS", payload:{newState: this.state.newState, newSubstate: this.state.newSubstate, itemCount: this.state.itemCount}
-    })
-     this.props.history.push('/Tender'); // Navigate to Tender screen
-  }
+      type: "TOTALS",
+      payload: {
+        newState: this.state.newState,
+        newSubstate: this.state.newSubstate,
+        itemCount: this.state.itemCount,
+      },
+    });
+    this.props.history.push("/Tender"); // Navigate to Tender screen
+  };
 
   addItem = () => {
-     // this.setState is always recommended while updating the state instead of
-     // directly updating the state like this.state = {'key': 'value'}
-     this.setState({newState: "item",
-     newSubstate: "added",
-    itemCount: this.state.itemCount+1})
-  }
+    this.returnButtonText = "Cancel";
+    // this.setState is always recommended while updating the state instead of
+    // directly updating the state like this.state = {'key': 'value'}
+    this.setState({
+      newState: "item",
+      newSubstate: "added",
+      itemCount: this.state.itemCount + 1,
+    });
+  };
 
   removeItem = () => {
-    this.setState({newState: "item",
-    newSubstate: "removed",
-    itemCount: this.state.itemCount-1})
-  }
+    if (this.state.itemCount === 1) {
+      this.returnButtonText = "Back";
+    }
+    this.setState({
+      newState: "item",
+      newSubstate: "removed",
+      itemCount: this.state.itemCount - 1,
+    });
+  };
 
   updateState = () => {
-    this.setState({newState: "item",
-    newSubstate: "initial",
-    itemCount: this.props.itemCount})
-  }
+    this.setState({
+      newState: "item",
+      newSubstate: "initial",
+      itemCount: this.props.itemCount,
+    });
+  };
   render() {
     return (
       <div>
-      <div className="ItemScreen">
-         <h1>Item screen</h1>
-         <p>State={this.state.newState} Substate={this.state.newSubstate}</p>
-         <p>Item Count={this.state.itemCount}</p>
-         <button onClick={this.onAddItem}>AddItem</button>
-         <button  disabled={this.state.itemCount === 0} onClick={this.onRemoveItem}>RemoveItem</button>
-         </div>
-         <div className="Footer" >
-         <button onClick={this.onBack}>Back</button>
-         <button disabled={this.state.itemCount === 0}
-         onClick={this.onTotals}>Finish&Pay</button>
-         </div>
+        <div className="ItemScreen">
+          <h1>Item screen</h1>
+          <p>
+            State={this.state.newState} Substate={this.state.newSubstate}
+          </p>
+          <p>Item Count={this.state.itemCount}</p>
+          <button onClick={this.onAddItem}>AddItem</button>
+          <button
+            disabled={this.state.itemCount === 0}
+            onClick={this.onRemoveItem}
+          >
+            RemoveItem
+          </button>
+        </div>
+        <div className="Footer">
+          <button onClick={this.onBack}>{this.returnButtonText}</button>
+          <button disabled={this.state.itemCount === 0} onClick={this.onTotals}>
+            Finish&Pay
+          </button>
+        </div>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return state;
-}
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
-  }
-}
+    dispatch,
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemScreen);
