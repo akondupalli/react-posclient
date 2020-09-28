@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+/cypress/integration/examples
+/cypress/videos
+
 
 # testing
 /coverage

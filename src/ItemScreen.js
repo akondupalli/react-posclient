@@ -12,7 +12,7 @@ class ItemScreen extends React.Component {
     };
     this.onAddItem = this.addItem;
     this.onRemoveItem = this.removeItem;
-    this.returnButtonText = "Back";
+    this.returnButtonText = this.state.itemCount === 0 ? "Back" : "Cancel";
   }
 
   onBack = () => {
