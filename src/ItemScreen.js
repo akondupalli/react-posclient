@@ -8,7 +8,7 @@ class ItemScreen extends React.Component {
     this.state = {
       newState: "item",
       newSubstate: "initial",
-      itemCount: props.itemCount,
+      itemCount: props.itemCount
     };
     this.onAddItem = this.addItem;
     this.onRemoveItem = this.removeItem;
@@ -24,7 +24,7 @@ class ItemScreen extends React.Component {
     }
     this.props.dispatch({
       type: "CANCEL",
-      payload: { newState: "welcome", newSubstate: "initial", itemCount: 0 },
+      payload: { newState: "welcome", newSubstate: "initial", itemCount: 0 }
     });
     this.props.history.push("/"); // Navigate to Welcome screen
   };
@@ -35,8 +35,8 @@ class ItemScreen extends React.Component {
       payload: {
         newState: this.state.newState,
         newSubstate: this.state.newSubstate,
-        itemCount: this.state.itemCount,
-      },
+        itemCount: this.state.itemCount
+      }
     });
     this.props.history.push("/Tender"); // Navigate to Tender screen
   };
@@ -48,7 +48,7 @@ class ItemScreen extends React.Component {
     this.setState({
       newState: "item",
       newSubstate: "added",
-      itemCount: this.state.itemCount + 1,
+      itemCount: this.state.itemCount + 1
     });
   };
 
@@ -59,7 +59,7 @@ class ItemScreen extends React.Component {
     this.setState({
       newState: "item",
       newSubstate: "removed",
-      itemCount: this.state.itemCount - 1,
+      itemCount: this.state.itemCount - 1
     });
   };
 
@@ -67,20 +67,23 @@ class ItemScreen extends React.Component {
     this.setState({
       newState: "item",
       newSubstate: "initial",
-      itemCount: this.props.itemCount,
+      itemCount: this.props.itemCount
     });
   };
   render() {
     return (
       <div>
         <div className="ItemScreen">
-          <h1>Item screen</h1>
+          <h1>Item Screen</h1>
           <p>
             State={this.state.newState} Substate={this.state.newSubstate}
           </p>
           <p>Item Count={this.state.itemCount}</p>
-          <button onClick={this.onAddItem}>AddItem</button>
+          <button id="addItem" onClick={this.onAddItem}>
+            AddItem
+          </button>
           <button
+            id="removeItem"
             disabled={this.state.itemCount === 0}
             onClick={this.onRemoveItem}
           >
@@ -88,8 +91,14 @@ class ItemScreen extends React.Component {
           </button>
         </div>
         <div className="Footer">
-          <button onClick={this.onBack}>{this.returnButtonText}</button>
-          <button disabled={this.state.itemCount === 0} onClick={this.onTotals}>
+          <button id="back" onClick={this.onBack}>
+            {this.returnButtonText}
+          </button>
+          <button
+            id="totals"
+            disabled={this.state.itemCount === 0}
+            onClick={this.onTotals}
+          >
             Finish&Pay
           </button>
         </div>
@@ -98,13 +107,13 @@ class ItemScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return state;
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    dispatch,
+    dispatch
   };
 };
 
