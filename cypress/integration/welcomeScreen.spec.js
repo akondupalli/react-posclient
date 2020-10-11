@@ -1,4 +1,4 @@
-describe("Test2 - Welcome Screen", () => {
+describe("Test1 - Welcome Screen", () => {
   it("Visit the app", () => {
     cy.visit("/");
   });

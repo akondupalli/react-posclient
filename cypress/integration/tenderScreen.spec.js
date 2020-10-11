@@ -1,6 +1,10 @@
-describe("Test4 - Tender Screen", () => {
+describe("Test3 - Tender Screen", () => {
   it("Visit Tender screen", () => {
-    cy.visit("./tender");
+    cy.url().then(url => {
+      if (!(url && url.includes("/Tender"))) {
+        cy.visit("./tender");
+      }
+    });
   });
 
   it("Verify header", () => {

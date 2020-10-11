@@ -1,25 +1,50 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("startTxn", () => {
+  cy.visit("/"); // load app
+  cy.get("#start-txn").click();
+});
+
+Cypress.Commands.add("loadItemScreen", () => {
+  // load url conditionally
+  cy.url().then(url => {
+    if (!(url && url.includes("/Item"))) {
+      cy.visit("./item");
+    }
+  });
+});
+
+Cypress.Commands.add("addItem", (count = 1) => {
+  for (let i = 0; i < count; i++) {
+    cy.get("#addItem").click();
+  }
+});
+
+Cypress.Commands.add("removeItem", (count = 1) => {
+  for (let i = 0; i < count; i++) {
+    cy.get("#removeItem").click();
+  }
+});
+
+Cypress.Commands.add("totals", () => {
+  cy.get("#totals").click();
+});
+
+Cypress.Commands.add("loadTenderScreen", () => {
+  // load url conditionally
+  cy.url().then(url => {
+    if (!(url && url.includes("/Tender"))) {
+      cy.visit("./tender");
+    }
+  });
+});
+
+Cypress.Commands.add("pay", () => {
+  cy.get("#pay").click();
+});
+
+Cypress.Commands.add("tenderComplete", () => {
+  cy.get("#tenderComplete").click();
+});
+
+Cypress.Commands.add("back", () => {
+  cy.get("#back").click();
+});

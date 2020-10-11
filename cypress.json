@@ -1,4 +1,10 @@
 {
   "baseUrl": "http://localhost:3000",
+  "testFiles": [
+    "welcomeScreen.spec.js",
+    "itemScreen.spec.js",
+    "tenderScreen.spec.js",
+    "scenarios/*"
+  ],
   "projectId": "7ke6ad"
 }

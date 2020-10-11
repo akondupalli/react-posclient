@@ -1,8 +1,11 @@
-describe("Test3 - Item Screen", () => {
+describe("Test2 - Item Screen", () => {
   it("Visit Item screen", () => {
-    cy.visit("./item");
+    cy.url().then(url => {
+      if (!(url && url.includes("/Item"))) {
+        cy.visit("./item");
+      }
+    });
   });
-
   it("Verify header", () => {
     cy.get("h1").contains("Item Screen");
   });
